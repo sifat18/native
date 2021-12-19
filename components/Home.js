@@ -14,6 +14,13 @@ const styles = StyleSheet.create({
         marginTop: 100,
         alignItems: 'center',
     },
+    btn: {
+        width: '80 %',
+        backgroundColor: '#4523',
+        padding: 15,
+        borderRadius: 10,
+        alignItems: 'center'
+    },
 });
 
 

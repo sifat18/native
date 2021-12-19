@@ -15,7 +15,7 @@ export default function LoginScreen() {
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
             if (user) {
-                navigation.navigate('Home')
+                navigation.replace('Home')
             }
         })
         return unsub;
@@ -53,6 +53,7 @@ export default function LoginScreen() {
     return (
         <KeyboardAvoidingView style={styles.container} behavior='padding'>
             <View style={styles.inputBox}>
+                <Text style={styles.header}>Register/Login here</Text>
                 <TextInput
                     placeholder='Email'
                     value={email}
@@ -92,6 +93,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    header: {
+        textAlign: 'center',
+        fontWeight: '900',
+        fontSize: 35,
+        marginBottom: 20
+
     },
     inputBox: {
         width: '80%'
