@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native'
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     // adding style to pic
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: '80 %',
-        backgroundColor: '#4523',
+        backgroundColor: '#3B23',
         padding: 15,
         borderRadius: 10,
         alignItems: 'center'
@@ -25,6 +27,18 @@ const styles = StyleSheet.create({
 
 
 export default function Home() {
+    const auth = getAuth();
+
+    const navigation = useNavigation()
+    const logOut = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigation.replace('Login')
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
+
     return (
         <SafeAreaView>
             <View>
@@ -35,9 +49,11 @@ export default function Home() {
                 ></Image>
             </View>
             <View style={styles.texts}>
-                <Text >this is home</Text>
+                <Text >{auth.currentUser?.email}</Text>
                 {/* touchable button */}
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={logOut}
+                    style={styles.btn}>
                     <Text>Start</Text>
                 </TouchableOpacity>
             </View>

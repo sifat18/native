@@ -1,14 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from 'react'
-import { View, Text, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import initialize from "../firebase.init";
+import pic from '../Enter.png'
 
 export default function LoginScreen() {
+    // email pass states 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
     const navigation = useNavigation()
-
+    // initializing firebase
     initialize()
     const auth = getAuth();
     //navigate on user state change
@@ -51,7 +53,13 @@ export default function LoginScreen() {
 
     }
     return (
-        <KeyboardAvoidingView style={styles.container} behavior='padding'>
+        <KeyboardAvoidingView style={styles.container}>
+            {/* adding image */}
+            <Image source={pic}
+                style={{ height: 300, width: 500 }}
+                resizeMode='contain'
+            ></Image>
+            {/* forms */}
             <View style={styles.inputBox}>
                 <Text style={styles.header}>Register/Login here</Text>
                 <TextInput
@@ -84,11 +92,12 @@ export default function LoginScreen() {
                 </TouchableOpacity>
             </View>
 
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView >
     )
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         alignItems: 'center',
