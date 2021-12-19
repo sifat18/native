@@ -1,10 +1,55 @@
-import React, { useState } from 'react'
+import { useNavigation } from "@react-navigation/native";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useEffect, useState } from 'react'
 import { View, Text, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import initialize from "../firebase.init";
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
+    const navigation = useNavigation()
 
+    initialize()
+    const auth = getAuth();
+    //navigate on user state change
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                navigation.navigate('Home')
+            }
+        })
+        return unsub;
+    }, [])
+
+    // signup-function
+    const signUp = () => {
+        createUserWithEmailAndPassword(auth, email, pass)
+            .then((userCredential) => {
+                const user = userCredential.user;
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+    }
+    // login
+    const login = () => {
+        signInWithEmailAndPassword(auth, email, pass)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user.email);
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+
+
+    }
     return (
         <KeyboardAvoidingView style={styles.container} behavior='padding'>
             <View style={styles.inputBox}>
@@ -25,13 +70,13 @@ export default function LoginScreen() {
             {/* buttons */}
             <View style={styles.btnContain}>
                 <TouchableOpacity
-                    onPress={() => { }}
+                    onPress={login}
                     style={styles.btn}
                 >
                     <Text style={styles.btnText}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => { }}
+                    onPress={signUp}
                     style={[styles.btn, styles.btnReg]}
                 >
                     <Text style={styles.btnRegText}>Register</Text>
@@ -41,6 +86,7 @@ export default function LoginScreen() {
         </KeyboardAvoidingView>
     )
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
