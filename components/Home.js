@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     texts: {
         // flex: 1,
-        marginTop: 100,
+        marginTop: 60,
         alignItems: 'center',
     },
     btn: {
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#3B23',
         padding: 15,
         borderRadius: 10,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 60
     },
 });
 
@@ -38,7 +39,9 @@ export default function Home() {
             // An error happened.
         });
     }
-
+    const pageChange = () => {
+        navigation.navigate('Browse')
+    }
     return (
         <SafeAreaView>
             <View>
@@ -49,12 +52,16 @@ export default function Home() {
                 ></Image>
             </View>
             <View style={styles.texts}>
-                <Text >{auth.currentUser?.email}</Text>
+                <Text style={{ fontSize: 35, fontWeight: '700', textAlign: 'center' }}>Welcome to the Open library</Text>
+                <Text style={{ marginTop: 20, padding: 20 }}>Open Library is an open, editable library catalog, building towards a web page for every book ever published.</Text>
+
+
+
                 {/* touchable button */}
                 <TouchableOpacity
-                    onPress={logOut}
+                    onPress={pageChange}
                     style={styles.btn}>
-                    <Text>Start</Text>
+                    <Text>Browse</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView >
