@@ -5,44 +5,45 @@ import { Text, Card, Button, Icon } from 'react-native-elements';
 export default function Items() {
     const [books, setBooks] = useState([])
     useEffect(() => {
-        fetch('books.json').then(res => res.json()).then(data => console.log(data))
+        fetch('https://nameless-hamlet-20681.herokuapp.com/books').then(res => res.json()).then(data => setBooks(data))
     }, [])
 
     return (
         <>
             <ScrollView>
                 <View style={styles.container}>
-                    <Card>
-                        <Card.Title>HELLO WORLD</Card.Title>
-                        <Card.Divider />
-                        <Card.Image
-                            style={{ padding: 0 }}
-                            source={{
-                                uri:
-                                    'https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg',
-                            }}
-                        />
-                        <Text style={{ marginBottom: 10 }}>
-                            The idea with React Native Elements is more about component
-                            structure than actual design.
-                        </Text>
-                        <Button
-                            icon={
-                                <Icon
-                                    name="code"
-                                    color="#ffffff"
-                                    iconStyle={{ marginRight: 10 }}
-                                />
-                            }
-                            buttonStyle={{
-                                borderRadius: 0,
-                                marginLeft: 0,
-                                marginRight: 0,
-                                marginBottom: 0,
-                            }}
-                            title="VIEW NOW"
-                        />
-                    </Card>
+                    {books.map(book =>
+                        <Card key={book._id}>
+                            <Card.Title>{book.title}</Card.Title>
+                            <Card.Divider />
+                            <Card.Image
+                                style={{ padding: 0 }}
+                                source={{
+                                    uri: book.coverImageUrl,
+                                }}
+                            />
+                            <Text style={{ margin: 10 }}>
+                                The idea with React Native Elements is more about component
+                                structure than actual design.
+                            </Text>
+                            <Button
+                                icon={
+                                    <Icon
+                                        name="code"
+                                        color="#ffffff"
+                                        iconStyle={{ marginRight: 10 }}
+                                    />
+                                }
+                                buttonStyle={{
+                                    borderRadius: 0,
+                                    marginLeft: 0,
+                                    marginRight: 0,
+                                    marginBottom: 0,
+                                }}
+                                title="VIEW NOW"
+                            />
+                        </Card>
+                    )}
                 </View>
             </ScrollView>
         </>

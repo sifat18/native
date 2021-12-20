@@ -58,7 +58,7 @@ export default function Browse() {
                 </View>
             </View>
             <View style={{ marginTop: 20, }}>
-                <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700' }}>FIND THE BOOKS YOU LOVE</Text>
+                <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', marginBottom: 20 }}>FIND THE BOOKS YOU LOVE</Text>
                 <Items></Items>
             </View>
         </SafeAreaView>
