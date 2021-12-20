@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 10,
         alignItems: 'center',
-        marginTop: 60
+        marginTop: 60,
+        marginBottom: 60
     },
 });

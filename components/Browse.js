@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { FlatList } from 'react-native'
 import { Image } from 'react-native'
 import { View, SafeAreaView, Text, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import Box from './Box'
 import Items from './Items'
+import Upcoming from './Upcoming'
 
 const images = [
     'https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVhZGluZyUyMGJvb2tzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
@@ -60,8 +63,16 @@ export default function Browse() {
             <View style={{ marginTop: 20, }}>
                 <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', marginBottom: 20 }}>FIND THE BOOKS YOU LOVE</Text>
             </View>
+            {/* data display section from heroku */}
             <Items></Items>
-        </SafeAreaView>
+            {/* horizontal scroll section */}
+            <View style={{ marginTop: 20, }}>
+                <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', marginBottom: 20 }}>Upcoming Books</Text>
+            </View>
+            {/* new Arrival section  */}
+            <Upcoming />
+
+        </SafeAreaView >
     )
 }
 const styles = StyleSheet.create({
