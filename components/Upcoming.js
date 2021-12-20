@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 import { View, Text } from 'react-native'
+import Box from './Box'
 
 export default function Upcoming() {
     const [newBooks, setNewBooks] = useState([])
-    const navigation = useNavigation()
     useEffect(() => {
         fetch('https://nameless-hamlet-20681.herokuapp.com/newBooks').then(res => res.json()).then(data => setNewBooks(data))
     }, [])
@@ -12,10 +12,11 @@ export default function Upcoming() {
     return (
         <View>
             <FlatList
+                horizontal
                 data={newBooks}
-                contentContainerStyle={{ paddingVertical: 30, paddingLeft: 20 }}
+                contentContainerStyle={{ paddingVertical: 20, paddingLeft: 20 }}
                 showsHorizontalScrollIndicator={false}
-                renderItem={(item, index) => <Box newBook={item} index={index} />}
+                renderItem={({ item, index }) => <Box key={item._id} newBook={item} index={index} />}
             ></FlatList>
         </View>
     )

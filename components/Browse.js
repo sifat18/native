@@ -30,49 +30,53 @@ export default function Browse() {
         }
     }
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.wrap}>
-                {/* image slider */}
-                <ScrollView
-                    onScroll={({ nativeEvent }) => onChange(nativeEvent)}
-                    showsHorizontalScrollIndicator={false}
-                    pagingEnabled
-                    horizontal
-                    style={styles.wrap}
-                >
-                    {/* looping over images */}
-                    {images.map((pic, index) =>
-                        <Image key={pic}
-                            resizeMode='stretch'
-                            style={styles.wrap}
-                            source={{ uri: pic }}
-                        ></Image>
-                    )}
-                </ScrollView>
-                {/* dots */}
-                <View style={styles.dot}>
-                    {images.map((e, index) =>
-                        <Text key={e}
-                            style={activeImg === index ? styles.dotActive : styles.dotNorm}
-                        >
-                            ●
-                        </Text>
-                    )}
+        <>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.wrap}>
+                    {/* image slider */}
+                    <ScrollView
+                        onScroll={({ nativeEvent }) => onChange(nativeEvent)}
+                        showsHorizontalScrollIndicator={false}
+                        pagingEnabled
+                        horizontal
+                        style={styles.wrap}
+                    >
+                        {/* looping over images */}
+                        {images.map((pic, index) =>
+                            <Image key={pic}
+                                resizeMode='stretch'
+                                style={styles.wrap}
+                                source={{ uri: pic }}
+                            ></Image>
+                        )}
+                    </ScrollView>
+                    {/* dots */}
+                    <View style={styles.dot}>
+                        {images.map((e, index) =>
+                            <Text key={e}
+                                style={activeImg === index ? styles.dotActive : styles.dotNorm}
+                            >
+                                ●
+                            </Text>
+                        )}
+                    </View>
                 </View>
-            </View>
-            <View style={{ marginTop: 20, }}>
-                <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', marginBottom: 20 }}>FIND THE BOOKS YOU LOVE</Text>
-            </View>
-            {/* data display section from heroku */}
-            <Items></Items>
-            {/* horizontal scroll section */}
-            <View style={{ marginTop: 20, }}>
-                <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', marginBottom: 20 }}>Upcoming Books</Text>
-            </View>
-            {/* new Arrival section  */}
-            <Upcoming />
+                <ScrollView>
+                    <View style={{ marginTop: 20, }}>
+                        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', marginBottom: 20 }}>FIND THE BOOKS YOU LOVE</Text>
+                    </View>
+                    {/* data display section from heroku */}
+                    <Items></Items>
+                    {/* horizontal scroll section */}
+                    <View style={{ marginTop: 20, }}>
+                        <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: '700', marginBottom: 20 }}>Upcoming Books</Text>
+                    </View>
 
-        </SafeAreaView >
+                    <Upcoming />
+
+                </ScrollView>
+            </SafeAreaView >
+        </>
     )
 }
 const styles = StyleSheet.create({

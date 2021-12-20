@@ -1,10 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { Image, ScrollView, TouchableOpacity } from 'react-native';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native'
+import { getAuth, signOut } from "firebase/auth";
 
 export default function Details({ route, navigation }) {
     /* 2. Get the param */
     const { book } = route.params;
+    const auth = getAuth();
+    const logOut = () => {
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigation.replace('Login')
+        }).catch((error) => {
+            // An error happened.
+        });
+    }
     return (
         <ScrollView>
             <SafeAreaView>
@@ -26,9 +37,22 @@ export default function Details({ route, navigation }) {
 
                     {/* touchable button */}
                     <TouchableOpacity
-                        // onPress={pageChange}
+                        onPress={() => navigation.navigate('Thank')}
                         style={styles.btn}>
                         <Text>Order</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={logOut}
+                        style={{
+                            width: '80 %',
+                            backgroundColor: '#e5e5e5',
+                            padding: 11,
+                            borderRadius: 10,
+                            alignItems: 'center',
+                            // marginTop: 20,
+                            marginBottom: 20
+                        }}>
+                        <Text>LogOut</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView >
@@ -56,6 +80,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         marginTop: 60,
-        marginBottom: 60
+        marginBottom: 20
     },
 });

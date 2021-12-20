@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native'
-import { getAuth, signOut } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
@@ -28,17 +27,9 @@ const styles = StyleSheet.create({
 
 
 export default function Home() {
-    const auth = getAuth();
 
     const navigation = useNavigation()
-    const logOut = () => {
-        signOut(auth).then(() => {
-            // Sign-out successful.
-            navigation.replace('Login')
-        }).catch((error) => {
-            // An error happened.
-        });
-    }
+
     const pageChange = () => {
         navigation.navigate('Browse')
     }
