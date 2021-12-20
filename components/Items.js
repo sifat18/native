@@ -1,16 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, StyleSheet, Image } from 'react-native';
+import { View, ScrollView, StyleSheet, Image, SafeAreaView } from 'react-native';
 import { Text, Card, Button, Icon } from 'react-native-elements';
 
 export default function Items() {
     const [books, setBooks] = useState([])
+    const navigation = useNavigation()
     useEffect(() => {
         fetch('https://nameless-hamlet-20681.herokuapp.com/books').then(res => res.json()).then(data => setBooks(data))
     }, [])
 
     return (
         <>
+            {/* creating scroll */}
             <ScrollView>
+                {/* looping over the data */}
                 <View style={styles.container}>
                     {books.map(book =>
                         <Card key={book._id}>
@@ -22,25 +26,25 @@ export default function Items() {
                                     uri: book.coverImageUrl,
                                 }}
                             />
+                            <Text style={{ margin: 10, fontWeight: 'bold', fontSize: 20 }}> Author:
+                                <Text style={{ paddingLeft: 10 }}> {book.author}           </Text>              </Text>
                             <Text style={{ margin: 10 }}>
-                                The idea with React Native Elements is more about component
-                                structure than actual design.
+                                {book.synopsis.slice(0, 150)}
                             </Text>
                             <Button
-                                icon={
-                                    <Icon
-                                        name="code"
-                                        color="#ffffff"
-                                        iconStyle={{ marginRight: 10 }}
-                                    />
-                                }
+
+
                                 buttonStyle={{
                                     borderRadius: 0,
                                     marginLeft: 0,
                                     marginRight: 0,
                                     marginBottom: 0,
                                 }}
-                                title="VIEW NOW"
+                                title="Details"
+                                onPress={() => {
+                                    /* 1. Navigate to the Details route with params */
+                                    navigation.navigate('Details', { book })
+                                }}
                             />
                         </Card>
                     )}
